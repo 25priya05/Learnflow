@@ -11,7 +11,7 @@ passport.use(
             clientID:
                 "973612399582-8vqg741s9vmmjtq3hv71s7ocudd58ck4.apps.googleusercontent.com",
             clientSecret: "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",
-            callbackURL: "http://localhost:3000/auth/google/callback",
+            callbackURL: "/auth/google/callback",
         },
         async (accessToken, refreshToken, profile, done) => {
             const newUser = {
@@ -22,9 +22,26 @@ passport.use(
                 email: profile.emails[0].value,
                 image: profile.photos[0].value,
             };
+            try {
+                let user = await User.findOne({ email: newUser.email });
+                if (user) {
+                    // User Exists
+                    console.log("EXISTS ", user);
+                    done(null, user);
+                } else {
+                    // Sign Up for the first time
+                    user = await User.create(newUser);
+                    console.log("NEW ", user);
+                    done(null, user);
+                }
+            } catch (error) {
+                console.log(error);
+                done(error);
+            }
         }
     )
 );
+
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
@@ -34,5 +51,5 @@ passport.deserializeUser(async (id, done) => {
         done(null, user);
     } catch (error) {
         done(error);
-    } 
+    }
 });
