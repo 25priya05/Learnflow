@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
+const { MONGO_CONNECTION_URI } = require("./keys");
 
 
 const connectDb = async () => {
     try {
-       const conn = await mongoose.connect(
-           "mongodb+srv://priyanka_kumari:pranav123@atlascluster.0qxd74u.mongodb.net/Learnflow?retryWrites=true&w=majority",
-           {
-               useNewUrlParser: true,
-               useUnifiedTopology: true,
-           }
-       );
+       const conn = await mongoose.connect(MONGO_CONNECTION_URI, {
+           useNewUrlParser: true,
+           useUnifiedTopology: true,
+       });
        console.log(`MongoDB Connected ${conn.connection.host}`);
         }
     catch (error) {
