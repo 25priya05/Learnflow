@@ -109,7 +109,7 @@
                                 </div>
 
                                 <!-- Video -->
-                                <!-- <div class="row">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label
@@ -128,7 +128,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <!-- <div class="col-md-6">
                                         <div class="form-group">
                                             <label
                                                 class="form-control-label mb-3"
@@ -145,8 +145,8 @@
                                                 <span>Choose a file…</span>
                                             </label>
                                         </div>
-                                    </div>
-                                </div> -->
+                                    </div> -->
+                                </div>
 
                                 <!-- Description -->
                                 <div class="mt-5 delimiter-top">
@@ -460,7 +460,11 @@
         // Make sure the file type matches the content-type of your pre-signed URL
 
         try {
-            // const videoThumbnail = document.querySelector("#video-thumbnail");
+
+
+
+            const videoThumbnail = document.querySelector("#video-thumbnail");
+            console.log(videoThumbnail.files[0]);
 
             // let thumbnailUploadResponse, thumbnailKeyName;
 
@@ -500,33 +504,30 @@
             //     newPost.thumbnail = `https://dt7hj5bw4w6bv.cloudfront.net/${thumbnailKeyName}`;
             // }
 
-            const title = form.title.value;
-            const subTitle = form.subTitle.value;
-            const description = editor1.getHTMLCode();
-            const response = await fetch("/post/create", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    title,
-                    subTitle,
-                    description,
-
-                })
-            });
-            const data = await response.json();
-            if (data.id) {
-                $("#loadingModal").modal("hide");
-                $("#successModal").modal("show");
-            } else {
-                $("#loadingModal").modal("hide");
-                $("#errorModal").modal("show");
-            }
-            
-            
+            // const title = form.title.value;
+            // const subTitle = form.subTitle.value;
+            // const description = editor1.getHTMLCode();
+            // const response = await fetch("/post/create", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({
+            //         title,
+            //         subTitle,
+            //         description,
+            //     }),
+            // });
+            // const data = await response.json();
+            // if (data.id) {
+            //     $("#loadingModal").modal("hide");
+            //     $("#successModal").modal("show");
+            // } else {
+            //     $("#loadingModal").modal("hide");
+            //     $("#errorModal").modal("show");
+            // }
         } catch (error) {
-            console.log(error);
-            $("#loadingModal").modal("hide");
-            $("#errorModal").modal("show");
+            // console.log(error);
+            // $("#loadingModal").modal("hide");
+            // $("#errorModal").modal("show");
         }
     });
 </script>
