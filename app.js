@@ -37,7 +37,7 @@ app.use("/auth", require("./routes/auth"));
 app.use("/", require("./routes/index"));
 app.use("/post", require("./routes/post"));
 app.use("/comment", require("./routes/comment"));
-//app.use("/upload", require("./routes/upload"));
+app.use("/upload", require("./routes/upload"));
 
 app.get("/internal-server-error", (req, res) => {
     res.render("error-500");

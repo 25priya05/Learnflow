@@ -128,7 +128,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label
                                                 class="form-control-label mb-3"
@@ -145,7 +145,7 @@
                                                 <span>Choose a file…</span>
                                             </label>
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </div>
 
                                 <!-- Description -->
@@ -411,7 +411,7 @@
   };
 </script> -->
 
-<!-- <script>
+<script>
     const uploadFile = async (file) => {
         // 1. Get pre-signed url for the file-name file-type
         // 2. Make a PUT request to that pre-signed with the body = file => Initiate the upload on s3
@@ -446,7 +446,7 @@
             $("#errorModal").modal("show");
         }
     };
-</script> -->
+</script>
 
 <script>
     const form = document.querySelector("form");
@@ -460,74 +460,65 @@
         // Make sure the file type matches the content-type of your pre-signed URL
 
         try {
-
-
-
             const videoThumbnail = document.querySelector("#video-thumbnail");
-            console.log(videoThumbnail.files[0]);
 
-            // let thumbnailUploadResponse, thumbnailKeyName;
+             let thumbnailUploadResponse, thumbnailKeyName;
 
-            // if (videoThumbnail.files.length > 0) {
-            //     const { uploadResponse, fileName } = await uploadFile(
-            //         videoThumbnail.files[0]
-            //     );
-            //     thumbnailUploadResponse = uploadResponse;
-            //     thumbnailKeyName = fileName;
-            //     console.log("THUMBNAIL", uploadResponse, fileName);
-            // }
+            if (videoThumbnail.files.length > 0) {
+                const { uploadResponse, fileName } = await uploadFile(
+                    videoThumbnail.files[0]
+                );
+               
+                     thumbnailUploadResponse = uploadResponse;
+                     thumbnailKeyName = fileName;
+                     console.log("THUMBNAIL", uploadResponse, fileName);
+            }
 
-            // let videoUploadResponse, videoKeyName;
+             let videoUploadResponse, videoKeyName;
 
-            // const video = document.querySelector("#video");
-            // if (video.files.length > 0) {
-            //     const { uploadResponse, fileName } = await uploadFile(
-            //         video.files[0]
-            //     );
+             const video = document.querySelector("#video");
+             if (video.files.length > 0) {
+                const { uploadResponse, fileName } = await uploadFile(
+                    video.files[0]
+                 );
 
-            //     videoUploadResponse = uploadResponse;
-            //     videoKeyName = fileName;
-            //     console.log("VIDEO", uploadResponse, fileName);
-            // }
+                 videoUploadResponse = uploadResponse;
+                videoKeyName = fileName;
+               console.log("VIDEO", uploadResponse, fileName);
+             }
 
-            // const newPost = {
-            //     title: form.title.value,
-            //     subTitle: form.subTitle.value,
-            //     description: editor1.getHTMLCode(),
-            // };
+             const newPost = {
+                title: form.title.value,
+                 subTitle: form.subTitle.value,
+                 description: editor1.getHTMLCode(),
+             };
 
-            // if (videoUploadResponse.ok) {
-            //     newPost.video = `https://dt7hj5bw4w6bv.cloudfront.net/${videoKeyName}`;
-            // }
+             if (videoUploadResponse.ok) {
+                 newPost.video = `https://d56mysps7v5b5.cloudfront.net/${videoKeyName}`;
+             }
 
-            // if (thumbnailUploadResponse.ok) {
-            //     newPost.thumbnail = `https://dt7hj5bw4w6bv.cloudfront.net/${thumbnailKeyName}`;
-            // }
+             if (thumbnailUploadResponse.ok) {
+                newPost.thumbnail = `https://d56mysps7v5b5.cloudfront.net/${thumbnailKeyName}`;
+             }
 
-            // const title = form.title.value;
-            // const subTitle = form.subTitle.value;
-            // const description = editor1.getHTMLCode();
-            // const response = await fetch("/post/create", {
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify({
-            //         title,
-            //         subTitle,
-            //         description,
-            //     }),
-            // });
-            // const data = await response.json();
-            // if (data.id) {
-            //     $("#loadingModal").modal("hide");
-            //     $("#successModal").modal("show");
-            // } else {
-            //     $("#loadingModal").modal("hide");
-            //     $("#errorModal").modal("show");
-            // }
+           
+            const response = await fetch("/post/create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newPost),
+            });
+            const data = await response.json();
+            if (data.id) {
+                $("#loadingModal").modal("hide");
+                $("#successModal").modal("show");
+            } else {
+                $("#loadingModal").modal("hide");
+                $("#errorModal").modal("show");
+            }
         } catch (error) {
-            // console.log(error);
-            // $("#loadingModal").modal("hide");
-            // $("#errorModal").modal("show");
+            console.log(error);
+            $("#loadingModal").modal("hide");
+            $("#errorModal").modal("show");
         }
     });
 </script>
