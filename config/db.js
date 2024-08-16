@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const { MONGO_CONNECTION_URI } = require("./keys");
+
+// Use environment variable for MongoDB URI
+const { MONGO_CONNECTION_URI } = process.env;
 
 const connectDb = async () => {
     try {
@@ -7,10 +9,10 @@ const connectDb = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        console.log(`MongoDB Connected ${conn.connection.host}`);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
-        console.log(error);
-        process.exit();
+        console.error(error);
+        process.exit(1);
     }
 };
 
