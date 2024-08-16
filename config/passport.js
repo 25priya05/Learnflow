@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const User = mongoose.model("users");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-let callbackurl = "https://learnflow-1-clzx.onrender.com/auth/google/callback";
+let callbackurl = "https://learnflow-2-2rgh.onrender.com/auth/google/callback";
 if (process.env.NODE_ENV === "development") {
     callbackurl = "/auth/google/callback";
 }
