@@ -1,16 +1,13 @@
 const passport = require("passport");
 const mongoose = require("mongoose");
-
 const User = mongoose.model("users");
-
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 passport.use(
     new GoogleStrategy(
         {
-            clientID:
-                "973612399582-8vqg741s9vmmjtq3hv71s7ocudd58ck4.apps.googleusercontent.com",
-            clientSecret: "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",
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: "/auth/google/callback",
         },
         async (accessToken, refreshToken, profile, done) => {
@@ -25,11 +22,9 @@ passport.use(
             try {
                 let user = await User.findOne({ email: newUser.email });
                 if (user) {
-                    // User Exists
                     console.log("EXISTS ", user);
                     done(null, user);
                 } else {
-                    // Sign Up for the first time
                     user = await User.create(newUser);
                     console.log("NEW ", user);
                     done(null, user);
@@ -45,6 +40,7 @@ passport.use(
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
+
 passport.deserializeUser(async (id, done) => {
     try {
         const user = await User.findById(id);

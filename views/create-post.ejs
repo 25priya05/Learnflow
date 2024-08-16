@@ -405,7 +405,7 @@
       });
       return response;
     } catch (error) {
-      $("#loadingModal").modal("hide"); 
+      $("#loadingModal").modal("hide");
       $("errorModal").modal("show");
     }
   };
@@ -462,46 +462,44 @@
         try {
             const videoThumbnail = document.querySelector("#video-thumbnail");
 
-             let thumbnailUploadResponse, thumbnailKeyName;
+            let thumbnailUploadResponse, thumbnailKeyName;
 
             if (videoThumbnail.files.length > 0) {
                 const { uploadResponse, fileName } = await uploadFile(
                     videoThumbnail.files[0]
                 );
-               
-                     thumbnailUploadResponse = uploadResponse;
-                     thumbnailKeyName = fileName;
-                     console.log("THUMBNAIL", uploadResponse, fileName);
+                thumbnailUploadResponse = uploadResponse;
+                thumbnailKeyName = fileName;
+                console.log("THUMBNAIL", uploadResponse, fileName);
             }
 
-             let videoUploadResponse, videoKeyName;
+            let videoUploadResponse, videoKeyName;
 
-             const video = document.querySelector("#video");
-             if (video.files.length > 0) {
+            const video = document.querySelector("#video");
+            if (video.files.length > 0) {
                 const { uploadResponse, fileName } = await uploadFile(
                     video.files[0]
-                 );
+                );
 
-                 videoUploadResponse = uploadResponse;
+                videoUploadResponse = uploadResponse;
                 videoKeyName = fileName;
-               console.log("VIDEO", uploadResponse, fileName);
-             }
+                console.log("VIDEO", uploadResponse, fileName);
+            }
 
-             const newPost = {
+            const newPost = {
                 title: form.title.value,
-                 subTitle: form.subTitle.value,
-                 description: editor1.getHTMLCode(),
-             };
+                subTitle: form.subTitle.value,
+                description: editor1.getHTMLCode(),
+            };
 
-             if (videoUploadResponse.ok) {
-                 newPost.video = `https://d56mysps7v5b5.cloudfront.net/${videoKeyName}`;
-             }
+            if (videoUploadResponse.ok) {
+                newPost.video = `https://dt7hj5bw4w6bv.cloudfront.net/${videoKeyName}`;
+            }
 
-             if (thumbnailUploadResponse.ok) {
-                newPost.thumbnail = `https://d56mysps7v5b5.cloudfront.net/${thumbnailKeyName}`;
-             }
+            if (thumbnailUploadResponse.ok) {
+                newPost.thumbnail = `https://dt7hj5bw4w6bv.cloudfront.net/${thumbnailKeyName}`;
+            }
 
-           
             const response = await fetch("/post/create", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -522,8 +520,8 @@
         }
     });
 </script>
-
-<!-- <script>
+<!-- 
+<script>
   const postForm = document.querySelector("#post-form");
   postForm.addEventListener("submit", async (e) => {
     e.preventDefault();
